@@ -118,6 +118,7 @@ function getMousePos(event) {
 }
 
 var dragFrom = -1;
+var dragTo = -1;
 
 window.onload = function() {
     ctx = document.getElementById("game-canvas").getContext("2d");
@@ -132,6 +133,7 @@ window.onload = function() {
 
     ctx.canvas.addEventListener("mousemove", function(event) {
         if(dragFrom != -1) {
+            dragTo = getMousePos(event);
             currPos = getMousePos(event);
             drawBoard();
             ctx.fillStyle = "rgba(255,255,255,0.8)";
@@ -141,8 +143,6 @@ window.onload = function() {
     }, false);
 
     ctx.canvas.addEventListener("mouseup", function(event) {
-        var dragTo = getMousePos(event);
-
         var w = ctx.canvas.width;
         
         var minX = Math.min(dragFrom.x, dragTo.x);
@@ -174,12 +174,18 @@ window.onload = function() {
     }, false);
 
     ctx.canvas.addEventListener("touchstart", function(event) {
-        ctx.canvas.dispatchEvent(event.touches[0]);
+        ctx.canvas.dispatchEvent(new MouseEvent("mousedown", {
+            clientX: event.touches[0].clientX,
+            clientY: event.touches[0].clientY
+        }));
     }, false);
     ctx.canvas.addEventListener("touchend", function(event) {
-        ctx.canvas.dispatchEvent(event.touches[0]);
+        ctx.canvas.dispatchEvent(new MouseEvent("mouseup", {}));
     }, false);
     ctx.canvas.addEventListener("touchmove", function(event) {
-        ctx.canvas.dispatchEvent(event.touches[0]);
+        ctx.canvas.dispatchEvent(new MouseEvent("mousemove", {
+            clientX: event.touches[0].clientX,
+            clientY: event.touches[0].clientY
+        }));
     }, false);
 };
