@@ -8,14 +8,6 @@ window.onresize = function(event) {resize();};
 
 var ctx;
 
-window.onload = function() {
-    ctx = document.getElementById("game-canvas").getContext("2d");
-    resize();
-    updateSize();
-    scramble();
-    drawBoard();
-};
-
 var size;
 var nums;
 var colors;
@@ -126,49 +118,68 @@ function getMousePos(event) {
 }
 
 var dragFrom = -1;
-document.addEventListener("mousedown", function(event) {
-    dragFrom = getMousePos(event);
-}, false);
 
-document.addEventListener("mousemove", function(event) {
-    if(dragFrom != -1) {
-        currPos = getMousePos(event);
-        drawBoard();
-        ctx.fillStyle = "rgba(255,255,255,0.8)";
-        ctx.fillRect(dragFrom.x, dragFrom.y,
-                     currPos.x-dragFrom.x, currPos.y-dragFrom.y);
-    }
-}, false);
-
-document.addEventListener("mouseup", function(event) {
-    var dragTo = getMousePos(event);
-
-    var w = ctx.canvas.width;
-    
-    var minX = Math.min(dragFrom.x, dragTo.x);
-    var minY = Math.min(dragFrom.y, dragTo.y);
-    var maxX = Math.max(dragFrom.x, dragTo.x);
-    var maxY = Math.max(dragFrom.y, dragTo.y);
-
-    var fromX = Math.floor(minX/(w/size));
-    var fromY = Math.floor(minY/(w/size));
-    var   toX = Math.floor(maxX/(w/size));
-    var   toY = Math.floor(maxY/(w/size));
-
-    if(!(fromX < 0 || size <= fromX || fromY < 0 || size <= fromY ||
-         toX < 0 || size <= toX || toY < 0 || size <= toY))
-        rotate(fromX, fromY, toX, toY);
-    
-    dragFrom = -1;
+window.onload = function() {
+    ctx = document.getElementById("game-canvas").getContext("2d");
+    resize();
+    updateSize();
+    scramble();
     drawBoard();
 
-    if(!(fromX < 0 || size <= fromX || fromY < 0 || size <= fromY ||
-         toX < 0 || size <= toX || toY < 0 || size <= toY)) {
-        var solved = true;
-        for(i = 0; i < size*size; i++)
-            if(nums[i] != i+1)
-                solved = false;
-        if(solved)
-            alert("Solved!");
-    }
-}, false);
+    ctx.canvas.addEventListener("mousedown", function(event) {
+        dragFrom = getMousePos(event);
+    }, false);
+
+    ctx.canvas.addEventListener("mousemove", function(event) {
+        if(dragFrom != -1) {
+            currPos = getMousePos(event);
+            drawBoard();
+            ctx.fillStyle = "rgba(255,255,255,0.8)";
+            ctx.fillRect(dragFrom.x, dragFrom.y,
+                         currPos.x-dragFrom.x, currPos.y-dragFrom.y);
+        }
+    }, false);
+
+    ctx.canvas.addEventListener("mouseup", function(event) {
+        var dragTo = getMousePos(event);
+
+        var w = ctx.canvas.width;
+        
+        var minX = Math.min(dragFrom.x, dragTo.x);
+        var minY = Math.min(dragFrom.y, dragTo.y);
+        var maxX = Math.max(dragFrom.x, dragTo.x);
+        var maxY = Math.max(dragFrom.y, dragTo.y);
+
+        var fromX = Math.floor(minX/(w/size));
+        var fromY = Math.floor(minY/(w/size));
+        var   toX = Math.floor(maxX/(w/size));
+        var   toY = Math.floor(maxY/(w/size));
+
+        if(!(fromX < 0 || size <= fromX || fromY < 0 || size <= fromY ||
+             toX < 0 || size <= toX || toY < 0 || size <= toY))
+            rotate(fromX, fromY, toX, toY);
+        
+        dragFrom = -1;
+        drawBoard();
+
+        if(!(fromX < 0 || size <= fromX || fromY < 0 || size <= fromY ||
+             toX < 0 || size <= toX || toY < 0 || size <= toY)) {
+            var solved = true;
+            for(i = 0; i < size*size; i++)
+                if(nums[i] != i+1)
+                    solved = false;
+            if(solved)
+                alert("Solved!");
+        }
+    }, false);
+
+    ctx.canvas.addEventListener("touchstart", function(event) {
+        ctx.canvas.dispatchEvent(event.touches[0]);
+    }, false);
+    ctx.canvas.addEventListener("touchend", function(event) {
+        ctx.canvas.dispatchEvent(event.touches[0]);
+    }, false);
+    ctx.canvas.addEventListener("touchmove", function(event) {
+        ctx.canvas.dispatchEvent(event.touches[0]);
+    }, false);
+};
