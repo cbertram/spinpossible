@@ -1,0 +1,56 @@
+#main-container {
+    width: 100%;
+    margin: auto;
+    color: black;
+}
+
+#game-canvas {
+    width: 100%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+#game-canvas {
+    border: 0.2em solid black;
+}
+
+@media only screen and (min-width: 600px) {
+    #main-container {
+        width: 80%;
+    }
+    #game-canvas {
+        width: 90%;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    #main-container {
+        width: 70%;
+    }
+    #game-canvas {
+        width: 80%
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    #main-container {
+        width: 70%;
+    }
+    #game-canvas {
+        width: 70%;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    #main-container {
+        width: 50%;
+    }
+    #game-canvas {
+        width: 60%;
+    }
+}

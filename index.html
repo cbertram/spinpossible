@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Spinpossible</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div id="main-container">
+      <h1>Spinpossible</h1>
+
+      Press and drag your cursor to select a rectangle of numbers.  The selected
+      numbers will be rotated 180 degrees as one unit.  Your goal is to get the
+      numbers back in the correct order, namely 1 to 9 from left to right, top
+      to bottom.
+
+      <p align=center>
+        <i>Number of moves: <span id="num-moves">0</span></i>
+      </p>
+      
+      <canvas id="game-canvas">Your browser unfortunately doesn't support the required </canvas>
+
+      <p>
+        <button onclick="updateSize();scramble();drawBoard();">Scramble</button>
+
+        <span style="float: right;">
+          Board size:
+          <select id="select-size" onchange="updateSize();scramble();drawBoard();">
+            <option value="2">2x2</option>
+            <option value="3" selected>3x3</option>
+            <option value="4">4x4</option>
+            <option value="5">5x5</option>
+            <option value="6">6x6</option>
+            <option value="7">7x7</option>
+            <option value="8">8x8</option>
+            <option value="9">9x9</option>
+            <option value="10">10x10</option>
+            <option value="11">11x11</option>
+            <option value="12">12x12</option>
+            <option value="13">13x13</option>
+            <option value="14">14x14</option>
+            <option value="15">15x15</option>
+            <option value="16">16x16</option>
+          </select>
+        </span>
+      </p>
+      
+
+      <footer>
+        <p><small>
+          I, <a href="https://github.com/cbertram" target="_blank">Christian
+            Bertram</a> wrote this website, but this game was <em>not</em>
+          invented by me.  If you are the inventor of this game, and don't want
+          me to host this website, please contact me.
+        </small></p>
+      </footer>
+    </div>
+  </body>
+</html>
