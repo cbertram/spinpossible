@@ -19,7 +19,7 @@
     border: 0.2em solid black;
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 40em) {
     #main-container {
         width: 80%;
     }
@@ -28,8 +28,8 @@
     }
 }
 
-@media only screen and (min-width: 768px) {
-    #main-container {
+@media only screen and (min-width: 48em) {
+    #main-container {768pxn
         width: 70%;
     }
     #game-canvas {
@@ -37,7 +37,7 @@
     }
 }
 
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 62em) {
     #main-container {
         width: 70%;
     }
@@ -46,7 +46,7 @@
     }
 }
 
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 75em) {
     #main-container {
         width: 50%;
     }
