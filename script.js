@@ -55,6 +55,9 @@ function drawBoard() {
 
 function updateSize() {
     size = Number(document.getElementById("select-size").value);
+
+    document.getElementById("maxnum").innerHTML = size*size;
+    
     nums = [];
     for(i = 1; i <= size*size; i++)
         nums.push(i);
