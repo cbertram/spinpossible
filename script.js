@@ -12,6 +12,7 @@ var size;
 var nums;
 var colors;
 var numMoves = 0;
+var allow1x1 = true;
 
 function drawBoard() {
     //if(ctx == undefined)
@@ -90,7 +91,7 @@ function scramble() {
 }
 
 function rotate(fx, fy, tx, ty, count=true) { // fromX, fromY, toX, toY
-    if(fx === tx && fy === ty) return;
+    if(!allow1x1 && fx === tx && fy === ty) return;
     //console.log(fx+" "+fy+"   "+tx+" "+ty);
     if(count) {
         numMoves++;
@@ -109,6 +110,12 @@ function rotate(fx, fy, tx, ty, count=true) { // fromX, fromY, toX, toY
             nums[b] = -tmp;
         }
     }
+}
+
+
+function toggleDiv(id) {
+    var div = document.getElementById(id);
+    div.style.display = div.style.display == "none" ? "block" : "none";
 }
 
 
