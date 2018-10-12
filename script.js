@@ -1,3 +1,13 @@
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return pair[1];}
+    }
+    return(false);
+}
+
 function resize() {
     var canvas = document.getElementById("game-canvas");
     canvas.width = canvas.offsetWidth;
@@ -55,7 +65,11 @@ function drawBoard() {
 }
 
 function updateSize() {
-    size = Number(document.getElementById("select-size").value);
+    setSize(Number(document.getElementById("select-size").value));
+}
+
+function setSize(newSize) {
+    size = newSize;
 
     document.getElementById("maxnum").innerHTML = size*size;
     
@@ -132,10 +146,19 @@ var dragTo = -1;
 
 window.onload = function() {
     ctx = document.getElementById("game-canvas").getContext("2d");
+
+    if(getQueryVariable("size"))
+        setSize(Number(getQueryVariable("size")));
+    else
+        updateSize();
+    if(getQueryVariable("nums"))
+        nums = JSON.parse(getQueryVariable("nums"));
+    else
+        scramble();
+    if(getQueryVariable("allow1x1"))
+        allow1x1 = Boolean(Number(getQueryVariable("allow1x1")));
+
     resize();
-    updateSize();
-    scramble();
-    drawBoard();
 
     ctx.canvas.addEventListener("mousedown", function(event) {
         dragFrom = getMousePos(event);
